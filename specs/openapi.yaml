@@ -66,8 +66,6 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-security:
-  - bearerAuth: []
   schemas:
     Trend:
       type: object
@@ -124,3 +122,6 @@ security:
             type: object
         metadata:
           type: object
+
+security:
+  - bearerAuth: []
