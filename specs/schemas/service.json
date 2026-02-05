@@ -1,0 +1,14 @@
+{
+  "$id": "https://example.com/schemas/service.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["service_id", "agent_id", "endpoint"],
+  "properties": {
+    "service_id": {"type": "string"},
+    "agent_id": {"type": "string"},
+    "endpoint": {"type": "string", "format": "uri"},
+    "input_schema": {"type": "object"},
+    "output_schema": {"type": "object"},
+    "pricing": {"type": "object"}
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$id": "https://example.com/schemas/content_request.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["trend_id", "platform"],
+  "properties": {
+    "trend_id": {"type": "string"},
+    "platform": {"type": "string"},
+    "content_type": {"type": "string"},
+    "constraints": {"type": "object"},
+    "context": {"type": "object"}
+  }
+}

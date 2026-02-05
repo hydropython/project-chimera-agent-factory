@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: Chimera Core APIs
+  version: 1.0.0
+paths:
+  /api/v1/trends/fetch:
+    post:
+      summary: Fetch aggregated trends
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'https://example.com/schemas/trend_request.json'
+      responses:
+        '200':
+          description: successful response
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/content/generate:
+    post:
+      summary: Generate content variants
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'https://example.com/schemas/content_request.json'
+      responses:
+        '200':
+          description: generation result
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

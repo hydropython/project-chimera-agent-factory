@@ -1,3 +1,4 @@
+cat > specs/functional.md << 'EOF'
 # Functional Specifications: User Stories
 
 ## Actor Definitions
@@ -109,3 +110,7 @@
 2. Human review queue must never exceed 1-hour backlog
 3. Content generation must maintain 95%+ compliance with platform guidelines
 4. System must scale linearly with added agents up to 1000 concurrent
+EOF
+
+git add specs/functional.md
+git commit -m "docs(specs): add functional.md with comprehensive user stories and acceptance criteria"

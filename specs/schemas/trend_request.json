@@ -1,0 +1,14 @@
+{
+  "$id": "https://example.com/schemas/trend_request.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["request_id", "sources"],
+  "properties": {
+    "request_id": {"type": "string"},
+    "sources": {"type": "array", "items": {"type": "string"}},
+    "categories": {"type": "array", "items": {"type": "string"}},
+    "time_range": {"type": "string"},
+    "geo_location": {"type": "string"},
+    "limit": {"type": "integer", "minimum": 1}
+  }
+}
