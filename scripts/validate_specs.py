@@ -1,3 +1,69 @@
+"""Validate JSON schemas under specs/schemas and check spec files for old heredoc wrappers.
+
+Run: python scripts/validate_specs.py
+"""
+import os
+import sys
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SCHEMAS_DIR = ROOT / 'specs' / 'schemas'
+SPEC_DIR = ROOT / 'specs'
+
+
+def validate_json_schemas():
+    if not SCHEMAS_DIR.exists():
+        print('No specs/schemas directory found — skipping schema validation')
+        return True
+    ok = True
+    for p in SCHEMAS_DIR.glob('**/*.json'):
+        try:
+            with p.open('r', encoding='utf-8') as f:
+                json.load(f)
+        except Exception as e:
+            print(f'Invalid JSON in {p}: {e}')
+            ok = False
+    return ok
+
+
+def check_heredoc_wrappers():
+    # scan markdown files for patterns like 'cat >', '<<', or code-fence wrappers left from earlier drafts
+    issues = []
+    pattern = re.compile(r"cat\s*>|<<\s*'EOF'|```markdown|```bash")
+    for p in SPEC_DIR.glob('**/*.md'):
+        try:
+            text = p.read_text(encoding='utf-8')
+        except Exception:
+            continue
+        m = pattern.search(text)
+        if m:
+            issues.append((p, m.group(0)))
+    if issues:
+        print('Found heredoc/code-fence patterns in spec markdown files:')
+        for p, token in issues:
+            print(f' - {p}: {token}')
+        return False
+    return True
+
+
+def main():
+    ok = True
+    print('Validating JSON schemas...')
+    if not validate_json_schemas():
+        ok = False
+    print('Checking specs for leftover wrappers...')
+    if not check_heredoc_wrappers():
+        ok = False
+    if not ok:
+        print('\nOne or more validations failed')
+        sys.exit(2)
+    print('\nAll spec validations passed')
+
+
+if __name__ == '__main__':
+    main()
 """Validate JSON Schema files and the OpenAPI YAML for basic correctness.
 
 Checks performed:

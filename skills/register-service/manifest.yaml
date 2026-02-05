@@ -1,0 +1,6 @@
+name: register-service
+version: 0.1.0
+description: Register a service with OpenClaw
+entrypoint: handler.py
+requirements:
+  - requests

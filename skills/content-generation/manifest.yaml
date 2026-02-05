@@ -1,0 +1,6 @@
+name: content-generation
+version: 0.1.0
+description: Generate content using configured LLM provider
+entrypoint: handler.py
+requirements:
+  - requests

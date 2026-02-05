@@ -1,0 +1,7 @@
+name: fetch-trends
+version: 0.1.0
+description: Fetch trends from OpenClaw and normalize results
+entrypoint: handler.py
+requirements:
+  - requests
+  - pyyaml

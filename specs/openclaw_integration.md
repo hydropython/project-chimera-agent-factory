@@ -1,12 +1,9 @@
 # OpenClaw Integration Specification
 
-## Overview
 This document describes how Project Chimera agents integrate with the OpenClaw Agent Network, covering identity and service registration, API contracts, event hooks, authentication, error handling, observability, testing, and deployment.
 
-## Goals
-- Define clear schemas and APIs for agent identity and service registration.
-- Specify message formats and event semantics for interoperability.
-- Describe auth, retry, idempotency, and monitoring requirements.
+## Overview
+The goal is to define clear schemas and APIs for agent identity and service registration, specify message formats and event semantics for interoperability, and describe auth, retry, idempotency, and monitoring requirements.
 
 ## Audience
 Product engineers, integration engineers, QA, and SRE teams implementing or validating OpenClaw connectivity for Chimera agents.
@@ -22,11 +19,8 @@ Product engineers, integration engineers, QA, and SRE teams implementing or vali
 3. Consumer agents discover services via OpenClaw and call provider endpoints or invoke RPC/event flows.
 4. OpenClaw maintains reputation, routing metadata, and marketplace records.
 
-Diagram (conceptual):
-- Chimera Agent <--> OpenClaw Registry / Reputation Service <--> Other Agents
-
 ## Identity and Service Registration
-- Identity payload (JSON) — required fields:
+### Identity payload (JSON) — required fields
 
 ```json
 {
@@ -39,7 +33,7 @@ Diagram (conceptual):
 }
 ```
 
-- Service registration payload:
+### Service registration payload
 
 ```json
 {
@@ -91,7 +85,7 @@ Event example:
 
 ## Error Handling
 - Use standard HTTP codes: 4xx for client errors, 5xx for server errors.
-- Error payload:
+- Error payload example:
 
 ```json
 {
@@ -158,7 +152,7 @@ if __name__ == '__main__':
 
 ---
 
-## Architecture & Data Flow Details
+### Architecture & Data Flow Details
 
 This section provides step-by-step integration sequences, component responsibilities, and message examples for core flows.
 

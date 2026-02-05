@@ -146,6 +146,19 @@ paths:
 - Use payload signing (ECDSA/RSA) for ownership proofs. Store private keys securely (hardware module or OS-protected key store).
 - Sanitize and escape any user-provided input before using in downstream prompts or renderers.
 
+## Signing & Key Management Recommendation
+
+- Recommended algorithm: ECDSA (P-256) for payload signing to balance security and compact signatures. Use RSA-2048/3072 only where required for compatibility.
+- Key Storage: store private keys in a managed Key Management Service (KMS) such as AWS KMS, Azure Key Vault, or GCP KMS; never store raw private keys in the repo or environment variables.
+- Signing flows:
+  - Control-plane registrations: create a signing key per agent or per team stored in KMS; agents request signing operations via a short-lived credential or use a hardware-backed key on the host.
+  - Payloads: canonicalize JSON (stable key ordering, UTF-8) and include `timestamp` and `nonce` in the signed body to prevent replay attacks.
+- Verification: OpenClaw (or counterpart) must expose public keys and key-ids to verify signatures; include `key_id` in registration payloads.
+- Rotation policy: rotate keys every 90 days (or according to org policy). Support a `rotate-key` endpoint that accepts a signed rotation request from the existing key to publish a new public key.
+- Auditing: log KMS key usage events and signing operations; ensure key access is gated by IAM roles and MFA for high-privilege operations.
+
+## Observability & Monitoring
+
 ## Observability & Monitoring
 - Logs: structured JSON logs including `component`, `operation`, `agent_id`, `request_id`.
 - Metrics: `chimera.trends.fetch.count`, `chimera.content.generate.latency_ms`, `chimera.safety.failures`.

@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "query": {"type": "string"},
+    "time_window": {"type": "string"},
+    "filters": {"type": "object"}
+  },
+  "required": ["query"]
+}

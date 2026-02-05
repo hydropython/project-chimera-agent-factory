@@ -1,4 +1,3 @@
-cat > specs/_meta.md << 'EOF'
 # Project Chimera: Meta Specification
 
 ## Vision Statement
@@ -31,4 +30,3 @@ Create a factory that produces autonomous AI influencers capable of:
 2. **Agentic First**: Design for AI agents as primary users
 3. **Observability**: Everything must be monitorable and debuggable
 4. **Resilience**: Graceful degradation under failure conditions
-EOF

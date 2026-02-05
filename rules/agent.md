@@ -1,4 +1,3 @@
-
 # AI Fluency Trigger Rules and Response Handling
 
 You have access to 2 trigger logging tools for AI fluency tracking. Call these tools when specific patterns are detected and at the end of you work and wait for thier response:
