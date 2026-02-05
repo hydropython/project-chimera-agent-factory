@@ -131,9 +131,9 @@ flowchart LR
   TA --> CG
   CG --> SL
   SL -->|queue| H
-  H -->|decision (approve/reject)| SL
+  H -->|decision: approve or reject| SL
   SL -->|publish| RG
-  RG -->|register/discover| B
+  RG -->|register or discover| B
   RG --> SK
   SK --> CG
   CG --> DB
