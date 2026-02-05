@@ -1,0 +1,17 @@
+review:
+  enabled: true
+  policies:
+    - id: spec-alignment
+      description: Ensure code changes align with files in `specs/` and require a plan in the PR body.
+      check: |
+        - Verify PR description references relevant `specs/` sections.
+        - Require a short plan and test description.
+    - id: security-vuln
+      description: Scan for obvious secrets, unsafe uses of eval/exec, and insecure networking.
+      check: |
+        - Fail if `private_key` or `SECRET` appears in new files.
+        - Flag raw `os.system` or use of `eval`.
+  reviewer_instructions: |
+    - Confirm the PR includes a plan that maps to spec sections.
+    - Confirm tests exist and include failing tests for unimplemented features (TDD).
+    - Flag any secrets or insecure patterns; require remediation before merge.
