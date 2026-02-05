@@ -108,21 +108,21 @@ The repository includes a Mermaid diagram illustrating the high-level architectu
 ```mermaid
 flowchart LR
   subgraph External
-    A[Social Platforms<br/>(Twitter, Reddit, YouTube, Google Trends)]
-    B[OpenClaw Network]
-    H[Human Reviewers]
+    A["Social Platforms\n(Twitter, Reddit, YouTube, Google Trends)"]
+    B["OpenClaw Network"]
+    H["Human Reviewers"]
   end
 
   subgraph Chimera_Core
-    TF[Trend Fetcher]
-    TA[Trend Analyzer]
-    CG[Content Generator]
-    SL[Safety Layer]
-    SK[Skills Runtime]
-    RG[Registry / Integration]
-    DB[(Metadata DB)]
-    CACHE[(Cache / Vector DB)]
-    OBS[Observability / Tracing]
+    TF["Trend Fetcher"]
+    TA["Trend Analyzer"]
+    CG["Content Generator"]
+    SL["Safety Layer"]
+    SK["Skills Runtime"]
+    RG["Registry / Integration"]
+    DB[("Metadata DB")]
+    CACHE[("Cache / Vector DB")]
+    OBS["Observability / Tracing"]
   end
 
   A -->|signals| TF
@@ -144,5 +144,4 @@ flowchart LR
   RG --> OBS
 
 ```
-# project-chimera-agent-factory
-Spec-driven agentic infrastructure for building autonomous AI influencers with governance, testing, and traceability.
+
