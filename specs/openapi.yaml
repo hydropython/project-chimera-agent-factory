@@ -2,6 +2,7 @@ openapi: 3.0.3
 info:
   title: Chimera Core APIs
   version: 1.0.0
+
 paths:
   /api/v1/trends/fetch:
     post:
@@ -36,7 +37,10 @@ paths:
                           title: "AI Breakthrough"
                           volume: 15000
                           sentiment: 0.72
-                          categories: [technology, innovation]
+                          categories:
+                            - technology
+                            - innovation
+
   /api/v1/content/generate:
     post:
       summary: Generate content variants
@@ -70,13 +74,16 @@ paths:
                       character_count: 30
                       readability_score: 7.5
                     variants: []
-                    metadata: {generation_model: example}
+                    metadata:
+                      generation_model: example
+
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+
   schemas:
     Trend:
       type: object
@@ -95,6 +102,7 @@ components:
           type: array
           items:
             type: string
+
     TrendsResponse:
       type: object
       properties:
@@ -109,6 +117,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Trend'
+
     ContentResponse:
       type: object
       properties:
@@ -139,7 +148,3 @@ servers:
     description: Development server
   - url: https://staging.chimera.local
     description: Staging server
-
-security:
-  - bearerAuth: []
-
