@@ -21,7 +21,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install jsonschema
+          pip install jsonschema flake8 safety detect-secrets
 
       - name: Spec check
         run: make spec-check
@@ -32,3 +32,18 @@ jobs:
       - name: Run tests
         run: make test
 
+      - name: Lint code
+        run: |
+          flake8 src/ tests/ --max-line-length=120
+        continue-on-error: false   # FAIL CI if lint fails
+
+      - name: Dependency SCA
+        run: |
+          safety check --full-report
+        continue-on-error: false   # FAIL CI if vulnerable dependencies found
+
+      - name: Secrets scan
+        run: |
+          detect-secrets scan | tee .secrets.baseline
+          detect-secrets audit .secrets.baseline --non-interactive
+        continue-on-error: false   # FAIL CI if secrets detected
