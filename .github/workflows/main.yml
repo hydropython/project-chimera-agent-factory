@@ -35,15 +35,16 @@ jobs:
       - name: Lint code
         run: |
           flake8 src/ tests/ --max-line-length=120
-        continue-on-error: false   # FAIL CI if lint fails
+        continue-on-error: false  # FAIL CI if lint fails
 
       - name: Dependency SCA
         run: |
           safety check --full-report
-        continue-on-error: false   # FAIL CI if vulnerable dependencies found
+        continue-on-error: false  # FAIL CI if vulnerable dependencies found
 
       - name: Secrets scan
         run: |
           detect-secrets scan | tee .secrets.baseline
           detect-secrets audit .secrets.baseline --non-interactive
-        continue-on-error: false   # FAIL CI if secrets detected
+        continue-on-error: false  # FAIL CI if secrets detected
+
