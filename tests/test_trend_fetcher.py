@@ -1,6 +1,8 @@
 import pytest
 from pathlib import Path
 
+# New:
+from trend_fetcher import fetch_trends  # noqa: F401
 
 def test_trend_schema_present():
     """Spec check: ensure the trend_request.json schema exists in specs/schemas."""
