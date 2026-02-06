@@ -1,109 +1,220 @@
 # Project Chimera — Agent Factory
 
-Project Chimera is a spec-driven repository that scaffolds an autonomous AI influencer platform: trend ingestion, content generation, safety reviews, and service integration (OpenClaw). This repo contains the technical and functional specifications, schema contracts, skill definitions, test harnesses, CI, and infra scaffolding needed to develop, validate, and operate the agents.
+Project Chimera is a spec-driven repository that scaffolds an autonomous AI influencer platform: trend ingestion, content generation, safety reviews, and service integration (OpenClaw). This repo contains the technical and functional specifications, schema contracts, skill definitions, test harnesses, CI/CD workflows, and infrastructure scaffolding needed to develop, validate, and operate the agents.
 
-Contents
-- `specs/` — master specifications and integration contracts (meta, functional, technical, OpenClaw integration, schemas).
-- `skills/` — skill manifests and input/output schemas (runtime handlers are intentionally omitted; see placeholders).
-- `tests/` — TDD scaffolding (failing tests that define empty slots for implementers).
-- `scripts/` — helper scripts (spec validation, skill runner stub).
-- `alembic/` — migration scaffold and initial migration for video metadata DB.
-- `.github/workflows/` — CI workflows: spec validation and test pipeline.
-- `Dockerfile`, `Makefile` — container and developer automation.
-- `CLAUDE.md`, `.coderabbit.yaml` — co-pilot rules and AI review policy.
+---
 
-Quick start
+## Overview
 
-1. Install dependencies (recommended to use a virtualenv):
+Project Chimera is designed to provide a production-ready, competition-level framework for autonomous AI agents. It ingests social trends, generates content variants, enforces skill contracts, validates against schemas, and maintains observability and governance through CI/CD pipelines.
+
+---
+
+## Target Audience
+
+- AI/ML Engineers building autonomous agent systems.
+- DevOps engineers managing CI/CD and containerized environments.
+- Researchers exploring spec-driven agent architectures.
+- Teams aiming for competition-level, production-ready Python projects.
+
+---
+
+## Prerequisites
+
+- **Python 3.11+**
+- **Docker** (optional but recommended)
+- **Git**
+- Basic understanding of:
+  - OpenAPI
+  - JSON Schema
+  - Test-driven development
+
+---
+
+## Installation
+
+Clone the repository:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate    # or .\.venv\Scripts\activate on Windows
-pip install -r requirements.txt
+git clone https://github.com/hydropython/project-chimera-agent-factory.git
+cd project-chimera-agent-factory
 ```
 
-2. Run spec-check (validates JSON schemas and scans for leftover heredoc wrappers):
+---
+
+## Environment Setup (uv)
+
+This project uses `uv` for fast, reproducible Python environments:
+
+```bash
+uv venv
+source .venv/bin/activate      # Windows: .\.venv\Scripts\activate
+uv pip install -r requirements.txt
+```
+
+---
+
+## Usage
+
+### Run Spec Validation
 
 ```bash
 make spec-check
-# or
-python scripts/validate_specs.py
 ```
 
-3. Run tests (TDD: some tests are intentionally failing to define empty slots):
+Validates:
+
+- OpenAPI contracts
+- JSON schemas
+- Spec integrity
+
+### Run Skill Contract Validation
+
+```bash
+python src/validate_skill_contracts.py
+```
+
+Ensures:
+
+- Skill inputs/outputs match schemas
+- No undocumented interfaces exist
+
+### Run Tests (TDD)
 
 ```bash
 make test
-# or
-python -m pytest -q
 ```
 
-Notes on failing tests
-- Tests under `tests/` are intentionally written to fail until implementations are provided. They create the "empty slot" that the agent runtime and engineers must fill (TrendFetcher, skill handlers).
+⚠️ Some tests may fail intentionally. This defines the agent’s required behavior.
 
-Development workflow
-1. Read the relevant spec files in `specs/` before making changes. The project enforces a Prime Directive: NEVER generate code without checking specs first. See `CLAUDE.md` for co-pilot rules.
-2. Make small, focused changes and include/modify tests to codify expected behavior (TDD).
-3. Run `make spec-check` then `make test` locally.
-4. Push changes to a feature branch and open a PR. CI will run spec validation and tests automatically.
+---
 
-Skills and Runtime
-- `skills/` contains skill manifests and JSON Schemas for inputs and outputs. Runtime handler implementations are deliberately omitted and documented by `HANDLER_PLACEHOLDER.md` files; implementers should provide handlers that conform to the schemas and the loader contract (`runtime/skill-loader/README.md`).
+## Data Requirements
 
-Database & Migrations
-- The `specs/db_schema.md` contains the ERD and Postgres DDL for video metadata and related tables.
-- Alembic scaffold and an initial migration are included under `alembic/`. To run migrations, configure your DB URL in `alembic.ini` (or set `sqlalchemy.url` via env) and run:
+- JSON inputs/outputs as defined in `specs/` schemas.
+- Video metadata stored in Postgres (see `specs/db_schema.md`).
+- Skills input/output must conform to JSON schema contracts.
 
-```bash
-pip install alembic
-alembic upgrade head
-```
+---
 
-Containerization
-- Build the project image (optional):
+## Testing Strategy
+
+- Tests are written **before implementation** (True TDD).
+- Failing tests represent "empty slots" that agents must implement.
+- Agents must conform to tests, not the other way around.
+
+---
+
+## Configuration
+
+- **CI/CD configuration:** `.github/workflows/main.yml`
+- **AI co-pilot rules:** `CLAUDE.md`
+- **AI review policy:** `.coderabbit.yaml`
+- **Environment variables:** `.env` (not committed)
+
+---
+
+## Methodology
+
+Project Chimera follows these principles:
+
+- **Specification First**
+- **Schemas as Law**
+- **Tests as Contracts**
+- **Skills as Capabilities**
+- **Governance over Freedom**
+
+> No code is written without specs.  
+> No specs exist without validation.
+
+---
+
+## Performance Expectations
+
+- **Schema validation:** milliseconds
+- **Skill contract checks:** milliseconds
+- **CI execution:** < 5 minutes
+- **Docker image:** minimal, deterministic
+
+---
+
+## Containerization
+
+Build the Docker image:
 
 ```bash
 make build-image
 ```
 
-CI / QA
-- `/.github/workflows/specs-validation.yml` runs the spec validator on spec changes.
-- `/.github/workflows/main.yml` runs `make spec-check` then `make test` on push/PR to `main`.
+Run inside Docker:
 
-Security & Key Management
-- The repository recommends using ECDSA (P-256) for payload signing and storing private keys in a managed KMS (AWS KMS, Azure Key Vault, GCP KMS). See `specs/technical.md` for a full recommendation and rotation policy.
-- Never commit secrets. `.coderabbit.yaml` contains AI review rules to detect obvious secret leaks and insecure patterns.
-
-Contributing
-- Follow the Prime Directive (`CLAUDE.md`): link PRs to `specs/` sections and include a short plan and tests.
-- Use small reviewable commits; include a test or validation step where possible.
-
-Useful commands
-- `make setup` — install dependencies
-- `make spec-check` — validate specs
-- `make test` — run pytest
-- `make build-image` — build Docker image
-- `python scripts/run_skill.py <skill> <json|file>` — run a skill via the loader (for runtime implementers)
-
-Contact & License
-- Repository owner: see Git history and remote `origin` for repo contact.
-- License: see top-level `LICENSE` file for project license terms.
-
-Appendix
-- Important files:
-  - `specs/_meta.md` — vision & constraints
-  - `specs/functional.md` — user stories & acceptance criteria
-  - `specs/technical.md` — API contracts, schemas, security
-  - `specs/openclaw_integration.md` — OpenClaw integration guidance
-  - `skills/*/HANDLER_PLACEHOLDER.md` — handler contract placeholders
+```bash
+docker run chimera-agent-factory
+```
 
 ---
 
-This README is intended to be the canonical onboarding and operational summary for engineers and reviewers working on Project Chimera.
+## CI/CD & Governance
 
-Architecture diagram
+- CI runs on every push and PR:
+  - Spec validation
+  - Skill contract validation
+  - Test execution
+- AI governance rules enforce:
+  - Spec alignment
+  - Security hygiene
+  - No undocumented behavior
 
-The repository includes a Mermaid diagram illustrating the high-level architecture at `diagrams/architecture.mmd`. Below is an embeddable Mermaid view:
+---
+
+## Security
+
+- Secrets are never committed.
+- Key management via external KMS is recommended.
+- `.coderabbit.yaml` checks for insecure patterns.
+
+---
+
+## Contributing
+
+- Read `CLAUDE.md` (Prime Directive)
+- Reference specs in every PR
+- Add or update tests
+- Keep commits small and reviewable
+- PRs without spec alignment will be rejected
+
+---
+
+## License
+
+See the top-level `LICENSE` file for full license terms.
+
+---
+
+## Changelog
+
+See Git commit history for versioned changes.
+
+---
+
+## Citation
+
+If you use this project in academic work, cite via:
+
+```
+Project Chimera — Hydropython Team, 2026. Repository: https://github.com/hydropython/project-chimera-agent-factory
+```
+
+---
+
+## Contact
+
+- Repository owner: see Git history and remote `origin`
+- Issues: open GitHub issues in this repository
+
+---
+
+## Architecture Diagram
 
 ```mermaid
 flowchart LR
@@ -142,6 +253,3 @@ flowchart LR
   TA --> OBS
   CG --> OBS
   RG --> OBS
-
-```
-
