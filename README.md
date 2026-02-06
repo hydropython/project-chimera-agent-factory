@@ -1,4 +1,4 @@
-# Project Chimera — Autonomous AI Influencer Platform
+# Project Chimera:Autonomous AI Influencer Platform
 
 ![CI](https://github.com/hydropython/project-chimera-agent-factory/actions/workflows/main.yml/badge.svg)
 ![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
