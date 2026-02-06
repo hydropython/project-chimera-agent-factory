@@ -28,18 +28,16 @@ paths:
               examples:
                 sample:
                   value:
-                    request_id: req_example
-                    status: success
+                    request_id: "req_example"
+                    status: "success"
                     data:
                       trends:
-                        - id: trend_001
-                          source: twitter
+                        - id: "trend_001"
+                          source: "twitter"
                           title: "AI Breakthrough"
                           volume: 15000
                           sentiment: 0.72
-                          categories:
-                            - technology
-                            - innovation
+                          categories: ["technology", "innovation"]
 
   /api/v1/content/generate:
     post:
@@ -66,16 +64,16 @@ paths:
               examples:
                 sample:
                   value:
-                    content_id: content_123
-                    platform: twitter
-                    content_type: text_post
+                    content_id: "content_123"
+                    platform: "twitter"
+                    content_type: "text_post"
                     primary_content:
                       text: "Breaking: Example content"
                       character_count: 30
                       readability_score: 7.5
                     variants: []
                     metadata:
-                      generation_model: example
+                      generation_model: "example"
 
 components:
   securitySchemes:
@@ -88,28 +86,20 @@ components:
     Trend:
       type: object
       properties:
-        id:
-          type: string
-        source:
-          type: string
-        title:
-          type: string
-        volume:
-          type: integer
-        sentiment:
-          type: number
+        id: { type: string }
+        source: { type: string }
+        title: { type: string }
+        volume: { type: integer }
+        sentiment: { type: number }
         categories:
           type: array
-          items:
-            type: string
+          items: { type: string }
 
     TrendsResponse:
       type: object
       properties:
-        request_id:
-          type: string
-        status:
-          type: string
+        request_id: { type: string }
+        status: { type: string }
         data:
           type: object
           properties:
@@ -121,25 +111,18 @@ components:
     ContentResponse:
       type: object
       properties:
-        content_id:
-          type: string
-        platform:
-          type: string
-        content_type:
-          type: string
+        content_id: { type: string }
+        platform: { type: string }
+        content_type: { type: string }
         primary_content:
           type: object
           properties:
-            text:
-              type: string
-            character_count:
-              type: integer
-            readability_score:
-              type: number
+            text: { type: string }
+            character_count: { type: integer }
+            readability_score: { type: number }
         variants:
           type: array
-          items:
-            type: object
+          items: { type: object }
         metadata:
           type: object
 
