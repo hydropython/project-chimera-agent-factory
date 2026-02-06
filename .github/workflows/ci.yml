@@ -2,33 +2,37 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   validate-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pyyaml jsonschema
-      - name: Validate specs
-        run: python scripts/validate_specs.py
-      - name: Start mock OpenClaw server
-        run: |
-          python -u tests/mock_openclaw.py &
-          sleep 2
-      - name: Run harness
-        env:
-          OPENCLAW_URL: http://127.0.0.1:5000/api
-          API_TOKEN: ''
-          SHARED_SECRET: 'test-secret'
-        run: python tests/openclaw_harness.py
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.12
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Validate specs
+      run: |
+        python scripts/validate_specs.py
+
+    - name: Run tests
+      run: |
+        python -m pytest -q
+
+    - name: Lint
+      run: |
+        pip install flake8 black
+        flake8 src tests
+        black --check src tests

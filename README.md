@@ -139,6 +139,27 @@ make test
 
 ---
 
+## Pre-commit hooks (lint & style)
+
+This repo includes a `.pre-commit-config.yaml` to enforce formatting, linting, and basic
+secrets checks locally.
+
+Install and enable:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+Run all hooks manually:
+
+```bash
+pre-commit run --all-files
+```
+
+
+---
+
 ## Configuration
 
 - **CI/CD configuration:** `.github/workflows/main.yml`
