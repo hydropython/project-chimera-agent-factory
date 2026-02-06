@@ -12,6 +12,11 @@ paths:
           application/json:
             schema:
               $ref: './schemas/trend_request.json'
+            examples:
+              sample_request:
+                value:
+                  query: "latest AI trends"
+                  max_results: 5
       responses:
         '200':
           description: successful response with aggregated trends
@@ -41,6 +46,12 @@ paths:
           application/json:
             schema:
               $ref: './schemas/content_request.json'
+            examples:
+              sample_request:
+                value:
+                  prompt: "Write a tweet about AI"
+                  tone: "informative"
+                  max_variants: 3
       responses:
         '200':
           description: generation result
@@ -123,5 +134,12 @@ components:
         metadata:
           type: object
 
+servers:
+  - url: https://dev.chimera.local
+    description: Development server
+  - url: https://staging.chimera.local
+    description: Staging server
+
 security:
   - bearerAuth: []
+
