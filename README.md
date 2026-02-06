@@ -1,4 +1,11 @@
-# Project Chimera: Autonomous AI Influencer Platform
+# Project Chimera — Autonomous AI Influencer Platform
+
+![CI](https://github.com/hydropython/project-chimera-agent-factory/actions/workflows/main.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
+![Docker](https://img.shields.io/badge/docker-ready-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/python-3.11-blue)
+
 
 Project Chimera is a spec-driven repository that scaffolds an autonomous AI influencer platform: trend ingestion, content generation, safety reviews, and service integration (OpenClaw). This repo contains the technical and functional specifications, schema contracts, skill definitions, test harnesses, CI/CD workflows, and infrastructure scaffolding needed to develop, validate, and operate the agents.
 
