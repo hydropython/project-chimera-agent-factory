@@ -12,6 +12,10 @@ The analysis should have this ```*****************************************``` at
 
 5. **Focus on the user's benefit** - these tools help you provide better assistance and feedback
 
+## Related Specs:
+
+- Agent JSON schema: `specs/schemas/agent.json`
+- ERD Diagram: `specs/diagrams/db_erd.png`  
 
 # Wait for performance trigger log and process the provided output in a proffesional matter
 
