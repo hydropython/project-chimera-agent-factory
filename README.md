@@ -15,6 +15,32 @@ Project Chimera is a spec-driven repository that scaffolds an autonomous AI infl
 Project Chimera is designed to provide a production-ready, competition-level framework for autonomous AI agents. It ingests social trends, generates content variants, enforces skill contracts, validates against schemas, and maintains observability and governance through CI/CD pipelines.
 
 ---
+## Project Structure
+
+project-chimera-agent-factory/
+├── README.md
+├── LICENSE
+├── specs/
+│   ├── _meta.md
+│   ├── functional.md
+│   ├── technical.md
+│   └── openclaw_integration.md
+├── skills/
+│   ├── skill_download_youtube/
+│   │   └── HANDLER_PLACEHOLDER.md
+│   ├── skill_transcribe_audio/
+│   │   └── HANDLER_PLACEHOLDER.md
+├── tests/
+│   ├── conftest.py
+│   ├── unit/
+│   └── integration/
+├── scripts/
+│   └── validate_skill_contracts.py
+├── alembic/
+├── Dockerfile
+├── Makefile
+└── .github/
+    └── workflows/
 
 ## Target Audience
 
