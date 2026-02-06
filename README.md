@@ -16,6 +16,7 @@ Project Chimera is designed to provide a production-ready, competition-level fra
 
 ---
 ## Project Structure
+```
 
 project-chimera-agent-factory/
 ├── README.md
@@ -41,6 +42,7 @@ project-chimera-agent-factory/
 ├── Makefile
 └── .github/
     └── workflows/
+```
 
 ## Target Audience
 
