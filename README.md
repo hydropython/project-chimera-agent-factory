@@ -1,4 +1,4 @@
-# Project Chimera — Agent Factory
+# Project Chimera: Autonomous AI Influencer Platform
 
 Project Chimera is a spec-driven repository that scaffolds an autonomous AI influencer platform: trend ingestion, content generation, safety reviews, and service integration (OpenClaw). This repo contains the technical and functional specifications, schema contracts, skill definitions, test harnesses, CI/CD workflows, and infrastructure scaffolding needed to develop, validate, and operate the agents.
 
