@@ -1,14 +1,14 @@
-from typing import Dict, Any
+"""Compatibility shim for the TrendFetcher skill.
 
-def fetch_trends(request: Dict[str, Any]) -> Dict[str, Any]:
-    """Minimal stub for TrendFetcher used by tests.
+The canonical runtime implementation now lives in `src.skills.trend_fetcher`.
+This module re-exports `fetch_trends` so existing imports keep working:
 
-    Returns an empty but valid response shape expected by the harness/tests.
-    """
-    return {
-        "request_id": request.get("request_id", "stub"),
-        "status": "success",
-        "data": {
-            "trends": []
-        }
-    }
+- `from src.trend_fetcher import fetch_trends`
+"""
+
+from typing import Any, Dict
+
+from .skills.trend_fetcher import fetch_trends  # noqa: F401
+
+__all__ = ["fetch_trends"]
+
